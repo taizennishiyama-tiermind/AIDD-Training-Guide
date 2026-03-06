@@ -243,7 +243,7 @@ export function Chapter() {
       </motion.header>
 
       {/* Core Message */}
-      <KeyMessageBanner message={chapter.coreMessage} color="#6366f1" />
+      <KeyMessageBanner message={chapter.coreMessage} color="#d4764e" />
 
       {/* Chapter 1: Comparison */}
       {chapter.id === 1 && (

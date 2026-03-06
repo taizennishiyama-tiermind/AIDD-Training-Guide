@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Sidebar } from './Sidebar'
 import { useState } from 'react'
 import { Menu, PanelLeftClose, PanelLeft } from 'lucide-react'
+import claudeLogo from '../assets/Claude Logo.png'
 
 export function Layout() {
   const location = useLocation()
@@ -49,6 +50,7 @@ export function Layout() {
           >
             <Menu className="w-5 h-5 text-gray-600" />
           </button>
+          <img src={claudeLogo} alt="" className="w-5 h-5" />
           <span className="font-semibold text-sm text-gray-900">AI-Driven Dev Training</span>
         </header>
 

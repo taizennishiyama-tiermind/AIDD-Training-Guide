@@ -1,7 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { chapters } from '../data/chapters'
 import { motion } from 'framer-motion'
-import { Home, X, Clock, Link as LinkIcon } from 'lucide-react'
+import { Home, X, Clock, Link as LinkIcon, Monitor } from 'lucide-react'
+import claudeLogo from '../assets/Claude Logo.png'
 
 interface SidebarProps {
   readonly onClose: () => void
@@ -14,9 +15,12 @@ export function Sidebar({ onClose }: SidebarProps) {
   return (
     <div className="h-full bg-white border-r border-gray-200 flex flex-col overflow-hidden">
       <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-        <NavLink to="/" className="group" onClick={onClose}>
-          <div className="font-bold text-sm text-gray-900 tracking-tight">AI-Driven Dev</div>
-          <div className="text-[10px] text-gray-400 font-medium tracking-wider uppercase">Training Guide</div>
+        <NavLink to="/" className="group flex items-center gap-2.5" onClick={onClose}>
+          <img src={claudeLogo} alt="Claude" className="w-7 h-7" />
+          <div>
+            <div className="font-bold text-sm text-gray-900 tracking-tight">AI-Driven Dev</div>
+            <div className="text-[10px] text-gray-400 font-medium tracking-wider uppercase">Training Guide</div>
+          </div>
         </NavLink>
         <button
           onClick={onClose}
@@ -41,6 +45,21 @@ export function Sidebar({ onClose }: SidebarProps) {
         >
           <Home className="w-3.5 h-3.5 shrink-0" />
           Overview
+        </NavLink>
+
+        <NavLink
+          to="/setup"
+          onClick={onClose}
+          className={({ isActive }) =>
+            `flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium transition-all mt-2 ${
+              isActive
+                ? 'bg-primary-50 text-primary-700'
+                : 'text-gray-500 hover:bg-gray-50 hover:text-gray-800'
+            }`
+          }
+        >
+          <Monitor className="w-3.5 h-3.5 shrink-0" />
+          Ep.0 セットアップ
         </NavLink>
 
         <div className="mt-5 mb-2 px-3">
@@ -104,7 +123,8 @@ export function Sidebar({ onClose }: SidebarProps) {
         </a>
       </nav>
 
-      <div className="px-5 py-3 border-t border-gray-100">
+      <div className="px-5 py-3 border-t border-gray-100 flex items-center gap-2">
+        <img src={claudeLogo} alt="" className="w-3.5 h-3.5 opacity-40" />
         <div className="text-[10px] text-gray-400">Powered by Claude Code</div>
       </div>
     </div>

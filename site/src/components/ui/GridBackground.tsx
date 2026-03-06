@@ -8,8 +8,8 @@ export function GridBackground() {
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(76, 110, 245, 0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(76, 110, 245, 0.5) 1px, transparent 1px)
+            linear-gradient(rgba(212, 118, 78, 0.5) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(212, 118, 78, 0.5) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -24,7 +24,7 @@ export function GridBackground() {
         transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
         className="absolute -top-20 -right-20 w-96 h-96 rounded-full opacity-30"
         style={{
-          background: 'radial-gradient(circle, rgba(76, 110, 245, 0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(212, 118, 78, 0.15) 0%, transparent 70%)',
         }}
       />
       <motion.div
@@ -35,7 +35,7 @@ export function GridBackground() {
         transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
         className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full opacity-30"
         style={{
-          background: 'radial-gradient(circle, rgba(121, 80, 242, 0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(192, 106, 68, 0.12) 0%, transparent 70%)',
         }}
       />
 

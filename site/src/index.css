@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  /* Primary: Deep indigo - single tone */
-  --color-primary-50: #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
+  /* Primary: Claude terracotta / coral */
+  --color-primary-50: #fdf4ef;
+  --color-primary-100: #fbe8dd;
+  --color-primary-200: #f5cdba;
+  --color-primary-300: #ecac8e;
+  --color-primary-400: #e08b63;
+  --color-primary-500: #d4764e;
+  --color-primary-600: #c06a44;
+  --color-primary-700: #a05839;
+  --color-primary-800: #834932;
+  --color-primary-900: #6b3e2c;
 
-  /* Accent: warm amber, used sparingly */
-  --color-accent-50: #fffbeb;
-  --color-accent-100: #fef3c7;
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
+  /* Accent: warm sand */
+  --color-accent-50: #fefcf5;
+  --color-accent-100: #fdf5e3;
+  --color-accent-400: #e8b84d;
+  --color-accent-500: #d4a03a;
+  --color-accent-600: #b8882e;
 
   /* Grayscale */
   --color-gray-50: #fafafa;

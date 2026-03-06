@@ -8,11 +8,12 @@ import { AnimatedComparison } from '../components/ui/AnimatedComparison'
 import { FlowDiagram } from '../components/ui/FlowDiagram'
 import { VSCodeSimulator, demoLines } from '../components/ui/VSCodeSimulator'
 import {
-  ArrowRight, Zap, ExternalLink,
-  Play, ChevronRight
+  ArrowRight, ExternalLink,
+  Play, ChevronRight, Monitor
 } from 'lucide-react'
 import { CopyPageButton } from '../components/ui/CopyPageButton'
 import { generateHomeMarkdown } from '../utils/generateMarkdown'
+import claudeLogo from '../assets/Claude Logo.png'
 
 export function Home() {
   return (
@@ -34,7 +35,7 @@ export function Home() {
             className="flex items-center gap-2 mb-6"
           >
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-50 text-primary-600 text-[11px] font-semibold border border-primary-100">
-              <Zap className="w-3 h-3" /> AI-Driven Development
+              <img src={claudeLogo} alt="" className="w-3.5 h-3.5" /> AI-Driven Development
             </span>
             <span className="text-[11px] text-gray-400 font-medium">5h training</span>
           </motion.div>
@@ -78,14 +79,12 @@ export function Home() {
               <Play className="w-3.5 h-3.5" /> 研修を始める
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <a
-              href="https://docs.anthropic.com/ja/docs/claude-code/overview"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/setup"
               className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg border border-gray-200 text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors"
             >
-              Claude Code Docs <ExternalLink className="w-3 h-3" />
-            </a>
+              <Monitor className="w-3.5 h-3.5" /> セットアップガイド
+            </Link>
           </motion.div>
         </div>
         <motion.div
@@ -106,10 +105,10 @@ export function Home() {
       {/* Stats */}
       <section className="mb-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <AnimatedCounter value={9} suffix=" chapters" label="Content" description="基礎から応用まで" color="#6366f1" />
-          <AnimatedCounter value={5} suffix=" hours" label="Duration" description="実践型ハンズオン" color="#6366f1" />
-          <AnimatedCounter value={30} suffix="+" label="Resources" description="厳選リソースリンク" color="#6366f1" />
-          <AnimatedCounter value={20} suffix="+" label="Prompts" description="すぐ使えるプロンプト集" color="#6366f1" />
+          <AnimatedCounter value={9} suffix=" chapters" label="Content" description="基礎から応用まで" color="#d4764e" />
+          <AnimatedCounter value={5} suffix=" hours" label="Duration" description="実践型ハンズオン" color="#d4764e" />
+          <AnimatedCounter value={30} suffix="+" label="Resources" description="厳選リソースリンク" color="#d4764e" />
+          <AnimatedCounter value={20} suffix="+" label="Prompts" description="すぐ使えるプロンプト集" color="#d4764e" />
         </div>
       </section>
 

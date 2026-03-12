@@ -23,8 +23,6 @@ import imgTipHuman from '../assets/illustration/png/s_human13.png'
 import imgM14 from '../assets/illustration/png/m_14_white.png'
 import imgHuman04 from '../assets/illustration/png/s_human04.png'
 import imgHuman07 from '../assets/illustration/png/s_human07.png'
-import imgHuman12 from '../assets/illustration/png/s_human12.png'
-import imgM06 from '../assets/illustration/png/m_06_white.png'
 import imgS03 from '../assets/illustration/png/s_03.png'
 import imgContextWindow from '../assets/captcha/context-window-usage.png'
 
@@ -64,49 +62,6 @@ const designSystems = [
     mdFilename: 'design_system_team_mirai.md',
   },
 ] as const
-
-const claudeMdTemplate = `# CLAUDE.md
-
-## Project Goal
-このプロジェクトは、○○を実現するWebアプリを作ることを目的とします。
-まずはローカルで動く最小構成を作り、必要に応じて改善します。
-
-## Priority
-1. まず動くこと
-2. シンプルでわかりやすいこと
-3. 保守しやすいこと
-4. 必要以上に複雑にしないこと
-
-## Users
-主な利用者は○○です。
-複雑なUIや専門用語は避け、迷いにくい導線を優先してください。
-
-## Environment
-- まずはローカルで起動確認できる状態を作る
-- 必要に応じてVercelへデプロイしやすい構成にする
-- 環境変数が必要な場合は .env.example を用意する
-
-## Implementation Policy
-- まず最小構成で実装する
-- 一度に過剰実装しない
-- 読みやすい構成を優先する
-
-## UI / UX
-- シンプル・クリーン・わかりやすく
-- 迷いにくいUIを優先する
-
-## Security
-- APIキーや秘密情報をフロントエンドに直書きしない
-- 認証情報は環境変数で扱う
-
-## Testing
-- 実装後はローカルで起動確認できる状態にする
-- 重要なロジックにはテストを追加する
-
-## Completion Criteria
-- ローカルで起動できる
-- 主要機能が最低限動く
-- 次に直すべき点が明確になっている`
 
 const requirementsMdTemplate = `# requirements.md - 入出金CSV変換ツール
 

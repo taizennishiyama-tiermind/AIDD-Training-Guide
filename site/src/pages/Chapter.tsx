@@ -15,7 +15,7 @@ import { VSCodeSimulator, githubLines } from '../components/ui/VSCodeSimulator'
 import { AnimatedComparison } from '../components/ui/AnimatedComparison'
 import { CopyPageButton } from '../components/ui/CopyPageButton'
 import { generateChapterMarkdown } from '../utils/generateMarkdown'
-import { ArrowLeft, ArrowRight, Clock, ShieldCheck, Lightbulb, Download, Users, Layout, ArrowRightLeft, Smartphone, Ban, FileText, Bot, ChevronRight, Send, Copy, Check, MessageSquare, Camera, Image, RotateCcw, RefreshCw, Folder, FolderOpen, FileCode, ExternalLink, FileSpreadsheet, Table2, ArrowDown, Zap, Eye } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock, ShieldCheck, Lightbulb, Download, Users, Layout, ArrowRightLeft, Smartphone, Ban, FileText, Bot, ChevronRight, Send, Copy, Check, MessageSquare, Camera, Image, RotateCcw, RefreshCw, Folder, FolderOpen, FileCode, ExternalLink, FileSpreadsheet, Table2, ArrowDown, Zap, Eye, Upload, Cloud, Monitor, GitBranch } from 'lucide-react'
 import { useEffect, useCallback, useState } from 'react'
 import { chapterIllustrations } from '../data/illustrations'
 
@@ -25,6 +25,9 @@ import imgHuman04 from '../assets/illustration/png/s_human04.png'
 import imgHuman07 from '../assets/illustration/png/s_human07.png'
 import imgS03 from '../assets/illustration/png/s_03.png'
 import imgContextWindow from '../assets/captcha/context-window-usage.png'
+import imgHuman09 from '../assets/illustration/png/s_human09.png'
+import imgHuman15 from '../assets/illustration/png/s_human15.png'
+import imgHuman20 from '../assets/illustration/png/s_human20.png'
 
 import imgTierMind from '../assets/design_image/TierMind.png'
 import imgDigitalAgency from '../assets/design_image/デジタル庁.png'
@@ -728,6 +731,201 @@ function Ch5ContextVisual() {
   )
 }
 
+function Ch6DeployFlowVisual() {
+  const flowSteps = [
+    { icon: Monitor, label: 'PCでアプリを作る', desc: 'Claude Codeで開発', who: 'あなた', color: 'primary' },
+    { icon: Upload, label: 'GitHubにプッシュ', desc: '「プッシュして」と伝えるだけ', who: 'Claude Code', color: 'gray' },
+    { icon: GitBranch, label: 'GitHub Actions', desc: '自動でビルド＆デプロイ', who: '自動', color: 'gray' },
+    { icon: Cloud, label: 'Azureで公開', desc: 'アプリURLでアクセス可能に', who: '自動', color: 'blue' },
+  ] as const
+
+  const colorMap = {
+    primary: { bg: 'bg-primary-50', border: 'border-primary-200', icon: 'text-primary-500', label: 'text-primary-700' },
+    gray: { bg: 'bg-gray-50', border: 'border-gray-200', icon: 'text-gray-500', label: 'text-gray-700' },
+    blue: { bg: 'bg-blue-50', border: 'border-blue-200', icon: 'text-blue-500', label: 'text-blue-700' },
+  } as const
+
+  return (
+    <div className="mb-10 pl-0 lg:pl-10 space-y-6">
+      {/* Deploy Flow Diagram */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">デプロイの流れ</p>
+        <div className="space-y-0">
+          {flowSteps.map((step, i) => {
+            const colors = colorMap[step.color]
+            const Icon = step.icon
+            return (
+              <div key={step.label}>
+                <motion.div
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.12 }}
+                  className={`flex items-center gap-4 p-4 rounded-xl border ${colors.border} ${colors.bg}`}
+                >
+                  <div className={`w-10 h-10 rounded-xl ${colors.bg} flex items-center justify-center shrink-0`}>
+                    <Icon className={`w-5 h-5 ${colors.icon}`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className={`text-sm font-bold ${colors.label}`}>{step.label}</p>
+                    <p className="text-xs text-gray-500">{step.desc}</p>
+                  </div>
+                  <span className="text-[10px] font-medium text-gray-400 shrink-0 bg-white px-2 py-1 rounded-full border border-gray-100">{step.who}</span>
+                </motion.div>
+                {i < flowSteps.length - 1 && (
+                  <div className="flex justify-center py-1">
+                    <ArrowDown className="w-4 h-4 text-gray-300" />
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </motion.div>
+
+      {/* Beginner comment 1 */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2 }}
+        className="flex items-start gap-3"
+      >
+        <img src={imgHuman09} alt="" className="w-10 h-10 shrink-0" />
+        <div className="flex-1 rounded-2xl bg-amber-50 border border-amber-200 p-4">
+          <p className="text-xs font-bold text-amber-700 mb-1">初心者のツッコミ</p>
+          <p className="text-sm text-amber-800">「GitHub Actions」って何ですか？自分で何かする必要がありますか？</p>
+        </div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="flex items-start gap-3"
+      >
+        <img src={imgHuman15} alt="" className="w-10 h-10 shrink-0" />
+        <div className="flex-1 rounded-2xl bg-green-50 border border-green-200 p-4">
+          <p className="text-xs font-bold text-green-700 mb-1">回答</p>
+          <p className="text-sm text-green-800">大下さんが環境を作るときに自動で設定してくれます。あなたは「プッシュして」と伝えるだけ。あとは全部自動です。</p>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+function Ch6RequestFlowVisual() {
+  const steps = [
+    { num: '1', who: 'あなた', action: 'JANDIで大下さんに連絡', detail: '「開発環境がほしいです。〇〇アプリ用です」', whoColor: 'primary' },
+    { num: '2', who: '大下さん', action: '空のGitHub + Azure環境を作成', detail: '5〜10分で用意してくれる', whoColor: 'blue' },
+    { num: '3', who: '大下さん', action: 'URLを共有', detail: 'GitHubリポジトリURL + アプリURL', whoColor: 'blue' },
+    { num: '4', who: 'あなた', action: 'Claude Codeでプッシュ', detail: '「このURLにプッシュして」と伝えるだけ', whoColor: 'primary' },
+  ] as const
+
+  return (
+    <div className="mb-10 pl-0 lg:pl-10 space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">環境申請のステップ</p>
+        <div className="rounded-xl border border-gray-200 overflow-hidden">
+          {steps.map((step, i) => (
+            <div
+              key={step.num}
+              className={`flex items-center gap-4 px-4 py-3.5 ${i < steps.length - 1 ? 'border-b border-gray-100' : ''} ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
+            >
+              <span className="w-7 h-7 rounded-full bg-gray-900 text-white text-xs font-bold flex items-center justify-center shrink-0">{step.num}</span>
+              <span className={`text-xs font-bold shrink-0 px-2 py-1 rounded-full ${step.whoColor === 'primary' ? 'bg-primary-100 text-primary-700' : 'bg-blue-100 text-blue-700'}`}>{step.who}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-gray-900">{step.action}</p>
+                <p className="text-xs text-gray-500">{step.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Point callout */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1 }}
+        className="relative rounded-2xl bg-gradient-to-r from-blue-50 to-primary-50 border-2 border-blue-200 p-5 overflow-hidden"
+      >
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:block shrink-0">
+            <img src={imgHuman20} alt="" className="w-14 h-14" />
+          </div>
+          <div>
+            <p className="text-sm font-black text-blue-900 mb-1">ポイント</p>
+            <p className="text-sm text-blue-700 leading-relaxed">
+              環境を作るのは大下さんの役割。あなたがやることは「JANDIで連絡する」と「プッシュする」の2つだけです。
+              難しい設定は一切不要。
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+function Ch6DailyFlowVisual() {
+  const cycleSteps = [
+    { label: '修正する', desc: 'Claude Codeに修正を指示', who: 'あなた' },
+    { label: '確認する', desc: 'localhostで画面を確認', who: 'あなた' },
+    { label: 'プッシュ', desc: '「プッシュして」と伝える', who: 'Claude Code' },
+    { label: '自動デプロイ', desc: 'Azureが数分で更新', who: '自動' },
+    { label: '公開URL確認', desc: 'アプリURLで最新を確認', who: 'あなた' },
+  ] as const
+
+  return (
+    <div className="mb-10 pl-0 lg:pl-10 space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">日常のサイクル</p>
+        <div className="rounded-xl border border-gray-200 overflow-hidden">
+          {cycleSteps.map((step, i) => (
+            <div
+              key={step.label}
+              className={`flex items-center gap-4 px-4 py-3 ${i < cycleSteps.length - 1 ? 'border-b border-gray-100' : ''} ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
+            >
+              <span className="text-xs font-bold text-gray-300 w-4 text-center shrink-0">{i + 1}</span>
+              <span className="text-sm font-bold text-gray-900 w-24 shrink-0">{step.label}</span>
+              <span className="text-sm text-gray-600 flex-1">{step.desc}</span>
+              <span className="text-[11px] text-gray-400 font-medium shrink-0">{step.who}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Beginner tip */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.15 }}
+        className="flex items-start gap-3"
+      >
+        <img src={imgTipHuman} alt="" className="w-10 h-10 shrink-0" />
+        <div className="flex-1 rounded-2xl bg-primary-50 border border-primary-200 p-4">
+          <p className="text-xs font-bold text-primary-700 mb-1">アドバイス</p>
+          <p className="text-sm text-primary-800">修正するたびにプッシュする必要はありません。localhostで何回か確認して、「よし、これでOK」と思ったタイミングでプッシュすれば大丈夫です。</p>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
 export function Chapter() {
   const { id } = useParams<{ id: string }>()
   const chapterId = Number(id)
@@ -1321,6 +1519,21 @@ export function Chapter() {
           {chapter.id === 5 && section.id === 'context-management' && (
             <Ch5ContextVisual />
           )}
+
+          {/* Ch.6: Deploy flow visual after overall-flow section */}
+          {chapter.id === 6 && section.id === 'overall-flow' && (
+            <Ch6DeployFlowVisual />
+          )}
+
+          {/* Ch.6: Request flow visual after deploy-steps section */}
+          {chapter.id === 6 && section.id === 'deploy-steps' && (
+            <Ch6RequestFlowVisual />
+          )}
+
+          {/* Ch.6: Daily flow visual after daily-flow section */}
+          {chapter.id === 6 && section.id === 'daily-flow' && (
+            <Ch6DailyFlowVisual />
+          )}
         </div>
       ))}
 
@@ -1345,11 +1558,11 @@ export function Chapter() {
         </div>
       )}
 
-      {/* Ch.6: GitHub Demo */}
+      {/* Ch.6: Deploy Demo */}
       {chapter.id === 6 && (
         <div className="my-10">
-          <h3 className="text-lg font-bold text-gray-900 leading-[1.52] tracking-[0.01em] mb-1">Demo: Git管理 & PR作成</h3>
-          <p className="text-sm text-gray-500 mb-4">コミット、プッシュ、PR作成もClaude Codeに任せられます。</p>
+          <h3 className="text-lg font-bold text-gray-900 leading-[1.52] tracking-[0.01em] mb-1">Demo: プッシュ & デプロイ</h3>
+          <p className="text-sm text-gray-500 mb-4">コミット、プッシュもClaude Codeに任せられます。プッシュすればAzureが自動で更新。</p>
           <VSCodeSimulator lines={githubLines} title="my-project - Claude Code" activeFile="Terminal - Git" />
         </div>
       )}

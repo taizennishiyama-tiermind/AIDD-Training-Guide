@@ -68,7 +68,7 @@ export function Sidebar({ onClose }: SidebarProps) {
           </span>
         </div>
 
-        {chapters.map((chapter) => {
+        {chapters.filter(c => c.id <= 8).map((chapter) => {
           const isActive = location.pathname === `/chapter/${chapter.id}`
 
           return (
@@ -85,6 +85,44 @@ export function Sidebar({ onClose }: SidebarProps) {
               {isActive && (
                 <motion.div
                   layoutId="sidebar-active"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 rounded-full bg-primary-500"
+                  transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                />
+              )}
+              <span className={`shrink-0 w-5 h-5 rounded text-[10px] font-bold flex items-center justify-center ${
+                isActive ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-400 group-hover:text-gray-600'
+              }`}>
+                {chapter.id}
+              </span>
+              <span className="truncate">{chapter.title}</span>
+              <span className="ml-auto text-[10px] text-gray-400 shrink-0 tabular-nums">{chapter.duration}</span>
+            </NavLink>
+          )
+        })}
+
+        <div className="mt-5 mb-2 px-3">
+          <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
+            番外編
+          </span>
+        </div>
+
+        {chapters.filter(c => c.id >= 9).map((chapter) => {
+          const isActive = location.pathname === `/chapter/${chapter.id}`
+
+          return (
+            <NavLink
+              key={chapter.id}
+              to={`/chapter/${chapter.id}`}
+              onClick={onClose}
+              className={`group flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] transition-all relative ${
+                isActive
+                  ? 'bg-primary-50 text-primary-700 font-medium'
+                  : 'text-gray-500 hover:bg-gray-50 hover:text-gray-800'
+              }`}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="sidebar-active-bonus"
                   className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 rounded-full bg-primary-500"
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                 />

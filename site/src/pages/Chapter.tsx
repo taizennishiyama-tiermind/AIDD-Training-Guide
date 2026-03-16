@@ -15,7 +15,7 @@ import { VSCodeSimulator, githubLines } from '../components/ui/VSCodeSimulator'
 import { AnimatedComparison } from '../components/ui/AnimatedComparison'
 import { CopyPageButton } from '../components/ui/CopyPageButton'
 import { generateChapterMarkdown } from '../utils/generateMarkdown'
-import { ArrowLeft, ArrowRight, Clock, ShieldCheck, Lightbulb, Download, Users, Layout, ArrowRightLeft, Smartphone, Ban, FileText, Bot, ChevronRight, Send, Copy, Check, MessageSquare, Camera, Image, RotateCcw, RefreshCw, Folder, FolderOpen, FileCode, ExternalLink, FileSpreadsheet, Table2, ArrowDown, Zap, Eye, Upload, Cloud, Monitor, GitBranch } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock, ShieldCheck, Lightbulb, Download, Users, Layout, ArrowRightLeft, Smartphone, Ban, FileText, Bot, ChevronRight, Send, Copy, Check, MessageSquare, Camera, Image, RotateCcw, RefreshCw, Folder, FolderOpen, FileCode, ExternalLink, FileSpreadsheet, Table2, ArrowDown, Zap, Eye, Upload, Cloud, Monitor, GitBranch, Gauge, Mail, Calendar, HardDrive, Settings, Plug, Package, Timer, Sparkles } from 'lucide-react'
 import { useEffect, useCallback, useState } from 'react'
 import { chapterIllustrations } from '../data/illustrations'
 
@@ -28,6 +28,9 @@ import imgContextWindow from '../assets/captcha/context-window-usage.png'
 import imgHuman09 from '../assets/illustration/png/s_human09.png'
 import imgHuman15 from '../assets/illustration/png/s_human15.png'
 import imgHuman20 from '../assets/illustration/png/s_human20.png'
+import imgHuman12 from '../assets/illustration/png/s_human12.png'
+import imgHuman16 from '../assets/illustration/png/s_human16.png'
+import imgS05 from '../assets/illustration/png/s_05.png'
 
 import imgTierMind from '../assets/design_image/TierMind.png'
 import imgDigitalAgency from '../assets/design_image/デジタル庁.png'
@@ -926,6 +929,705 @@ function Ch6DailyFlowVisual() {
   )
 }
 
+// === Ch.10: Claude Chat visuals (primary + gray tones) ===
+
+function Ch10BasicsVisual() {
+  const capabilities = [
+    { icon: Eye, label: 'Web検索', desc: '最新情報を自分で調べて回答' },
+    { icon: FileCode, label: 'コード実行', desc: 'Pythonを書いて即実行、グラフも生成' },
+    { icon: FileSpreadsheet, label: 'ファイル生成', desc: 'Word・Excel・PowerPoint・PDFを作成' },
+    { icon: Image, label: '図解・チャート', desc: 'フローチャートやダイアグラムを生成' },
+    { icon: Upload, label: 'ファイル読み取り', desc: 'PDF・画像・CSV・Excelを直接分析' },
+    { icon: MessageSquare, label: '音声入力', desc: 'マイクで話しかけてそのまま指示' },
+  ] as const
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">チャットなのに、ここまでできる</p>
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+          {capabilities.map((cap, i) => (
+            <motion.div
+              key={cap.label}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className="flex items-start gap-3 p-3 rounded-lg bg-white border border-gray-200"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary-50 flex items-center justify-center shrink-0">
+                <cap.icon className="w-4 h-4 text-primary-500" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-bold text-gray-900">{cap.label}</p>
+                <p className="text-[11px] text-gray-500 leading-relaxed">{cap.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-5 space-y-3">
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="flex items-start gap-3">
+          <img src={imgHuman09} alt="" className="w-10 h-10 shrink-0" />
+          <div className="flex-1 rounded-2xl bg-amber-50 border border-amber-200 p-4">
+            <p className="text-xs font-bold text-amber-700 mb-1">初心者のギモン</p>
+            <p className="text-sm text-amber-800">Gemini みたいに文章を返すだけじゃないの？</p>
+          </div>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="flex items-start gap-3">
+          <img src={imgHuman15} alt="" className="w-10 h-10 shrink-0" />
+          <div className="flex-1 rounded-2xl bg-green-50 border border-green-200 p-4">
+            <p className="text-xs font-bold text-green-700 mb-1">回答</p>
+            <p className="text-sm text-green-800">Claude は裏側で<strong>エージェントが自律的に動きます</strong>。Webを検索しに行ったり、Pythonを実行してグラフを作ったり、Excel・Word・PowerPointを生成したり。チャットの見た目のまま、かなり高度なことができます。ただし<strong>画像生成と動画生成はできない</strong>ので、そこは Gemini と使い分けましょう。</p>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch10ModelComparisonVisual() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">モデル比較</p>
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6">
+        <div className="space-y-3">
+          {[
+            { name: 'Sonnet 4.6', role: '日常のほぼ全て — デフォルト', desc: '質問・文章作成・コーディング・分析', barWidth: 'w-[50%]', highlight: true },
+            { name: 'Opus 4.6', role: '最終成果物・深い分析・本格実装', desc: 'レポート品質UP・Claude Code での実装・設計判断', barWidth: 'w-full', highlight: false },
+          ].map((model, i) => (
+            <motion.div
+              key={model.name}
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.12 }}
+              className={`rounded-xl border p-4 ${model.highlight ? 'border-primary-200 bg-primary-50/50' : 'border-gray-200 bg-white'}`}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <p className={`text-sm font-bold ${model.highlight ? 'text-primary-700' : 'text-gray-800'}`}>{model.name}</p>
+                {model.highlight && <span className="text-[10px] font-semibold text-primary-500 bg-primary-100 px-2 py-0.5 rounded-full">推奨</span>}
+              </div>
+              <p className="text-xs text-gray-600 mb-2">{model.role}</p>
+              <p className="text-[11px] text-gray-400 mb-2">{model.desc}</p>
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] font-medium text-gray-400 w-12 shrink-0">使用量</span>
+                <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div className={`h-full bg-primary-400 rounded-full ${model.barWidth}`} />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Beginner comment */}
+      <div className="mt-5 space-y-3">
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="flex items-start gap-3">
+          <img src={imgHuman09} alt="" className="w-10 h-10 shrink-0" />
+          <div className="flex-1 rounded-2xl bg-amber-50 border border-amber-200 p-4">
+            <p className="text-xs font-bold text-amber-700 mb-1">初心者のギモン</p>
+            <p className="text-sm text-amber-800">全部 Opus にしたほうが賢い回答が返ってくるんじゃないの？</p>
+          </div>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="flex items-start gap-3">
+          <img src={imgHuman15} alt="" className="w-10 h-10 shrink-0" />
+          <div className="flex-1 rounded-2xl bg-green-50 border border-green-200 p-4">
+            <p className="text-xs font-bold text-green-700 mb-1">回答</p>
+            <p className="text-sm text-green-800">「今日の天気は？」に Opus を使っても Sonnet と変わりません。それなのに使用量は3〜5倍。<strong>普段は Sonnet、最終成果物や「ここぞ」のときだけ Opus</strong> が鉄則です。</p>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch10UsageLimitVisual() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">使用量の仕組み</p>
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6">
+        {/* Dual window */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+          <div className="rounded-lg bg-white border border-gray-200 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Timer className="w-4 h-4 text-primary-500" />
+              <p className="text-sm font-bold text-gray-800">5時間ウィンドウ</p>
+            </div>
+            <p className="text-xs text-gray-500 leading-relaxed">最初のメッセージから5時間で計測。古いメッセージは期限切れ → 容量回復</p>
+            <div className="mt-3 h-3 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-full bg-primary-400 rounded-full w-[70%]" />
+            </div>
+            <p className="text-[10px] text-gray-400 mt-1">70% 使用中</p>
+          </div>
+          <div className="rounded-lg bg-white border border-gray-200 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Calendar className="w-4 h-4 text-primary-500" />
+              <p className="text-sm font-bold text-gray-800">7日間クォータ</p>
+            </div>
+            <p className="text-xs text-gray-500 leading-relaxed">1週間の総消費を追跡。7日後にリセット</p>
+            <div className="mt-3 h-3 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-full bg-gray-400 rounded-full w-[45%]" />
+            </div>
+            <p className="text-[10px] text-gray-400 mt-1">45% 使用中</p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-gray-100 border border-gray-200">
+          <ShieldCheck className="w-4 h-4 text-gray-500 mt-0.5 shrink-0" />
+          <p className="text-xs text-gray-600 leading-relaxed"><strong>どちらか一方でも上限に達すると</strong>、新しいメッセージが送れなくなります。リセット時刻まで待つか、Extra Usage を有効化してください。</p>
+        </div>
+
+        {/* Pro plan focus */}
+        <div className="mt-5 rounded-lg border-2 border-primary-200 bg-primary-50/30 p-4">
+          <p className="text-xs font-bold text-primary-600 uppercase tracking-widest mb-2">Pro プラン（$20/月）の目安</p>
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <p className="text-sm font-bold text-gray-800">5時間あたり約 40〜45 メッセージ</p>
+              <p className="text-xs text-gray-500 mt-1">Opus を多用すると実質 10〜15 メッセージに減少。普段は Sonnet を使うのが長持ちのコツ。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Beginner comment */}
+      <div className="mt-5 space-y-3">
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="flex items-start gap-3">
+          <img src={imgHuman12} alt="" className="w-10 h-10 shrink-0" />
+          <div className="flex-1 rounded-2xl bg-amber-50 border border-amber-200 p-4">
+            <p className="text-xs font-bold text-amber-700 mb-1">初心者のギモン</p>
+            <p className="text-sm text-amber-800">制限に引っかかるとデータが消えたりする？</p>
+          </div>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="flex items-start gap-3">
+          <img src={imgHuman15} alt="" className="w-10 h-10 shrink-0" />
+          <div className="flex-1 rounded-2xl bg-green-50 border border-green-200 p-4">
+            <p className="text-xs font-bold text-green-700 mb-1">回答</p>
+            <p className="text-sm text-green-800">消えません。既存のスレッドは読み取り専用で残ります。新しいメッセージが送れなくなるだけ。リセット時刻まで待てば復活します。</p>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch10TipsVisual() {
+  const tips = [
+    { num: '1', title: 'モデルを使い分ける', desc: '普段は Sonnet → 最終成果物や実装は Opus' },
+    { num: '2', title: 'Projects を活用', desc: '資料をキャッシュ → 使用量節約' },
+    { num: '3', title: '不要な機能をオフ', desc: 'Web検索・コネクタは必要時だけ' },
+    { num: '4', title: '会話を短く保つ', desc: 'トピックが変わったら新しい会話に' },
+    { num: '5', title: 'オフピークを狙う', desc: 'JST 3:00〜21:00 は容量に余裕あり' },
+    { num: '6', title: '制限時は Extra Usage', desc: '従量課金で即座に復活' },
+  ]
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">節約Tips 早見表</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+        {tips.map((tip) => (
+          <div key={tip.num} className="flex items-start gap-3 p-3 rounded-lg bg-white border border-gray-200">
+            <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-600 text-xs font-bold flex items-center justify-center shrink-0">{tip.num}</span>
+            <div>
+              <p className="text-sm font-bold text-gray-900">{tip.title}</p>
+              <p className="text-[11px] text-gray-500">{tip.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch10ProjectsVisual() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">Projects の仕組み</p>
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6">
+        <div className="space-y-0">
+          {[
+            { label: '参考資料をアップロード', desc: 'マニュアル、ガイドライン、過去資料など' },
+            { label: 'キャッシュされて使用量節約', desc: '毎回添付するより効率的' },
+            { label: '新しい会話でも自動読み込み', desc: 'プロジェクト内なら文脈を維持' },
+          ].map((step, i) => (
+            <div key={step.label}>
+              <div className="flex items-center gap-4 p-3 rounded-xl bg-white border border-gray-200">
+                <span className="w-7 h-7 rounded-full bg-primary-100 text-primary-600 text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
+                <div>
+                  <p className="text-sm font-bold text-gray-800">{step.label}</p>
+                  <p className="text-xs text-gray-500">{step.desc}</p>
+                </div>
+              </div>
+              {i < 2 && (
+                <div className="flex justify-center py-1">
+                  <ArrowDown className="w-4 h-4 text-gray-300" />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-4 flex items-start gap-3">
+        <img src={imgTipHuman} alt="" className="w-14 h-14 shrink-0 -mt-1 hidden sm:block" />
+        <div className="flex-1 rounded-2xl bg-amber-50 border border-amber-200 p-5">
+          <p className="text-sm font-bold text-amber-800 mb-1">ワンポイント</p>
+          <p className="text-sm text-amber-700 leading-relaxed">Projects にアップした資料は<strong>キャッシュ</strong>されるので、毎回ファイルを添付するより使用量が少なくなります。よく参照する資料は Projects に入れておきましょう。</p>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch10ConnectorVisual() {
+  const connectors = [
+    { name: 'Gmail', desc: 'メール検索・送信', icon: Mail, color: 'text-red-500', bg: 'bg-red-50' },
+    { name: 'Slack', desc: 'メッセージ取得・投稿', icon: MessageSquare, color: 'text-purple-500', bg: 'bg-purple-50' },
+    { name: 'Google Calendar', desc: '予定の確認・作成', icon: Calendar, color: 'text-blue-500', bg: 'bg-blue-50' },
+    { name: 'Google Drive', desc: 'ファイルの読み書き', icon: HardDrive, color: 'text-green-500', bg: 'bg-green-50' },
+    { name: 'GitHub', desc: 'Issue・PR の操作', icon: GitBranch, color: 'text-gray-700', bg: 'bg-gray-100' },
+    { name: 'Notion', desc: 'ページの読み書き', icon: FileText, color: 'text-gray-700', bg: 'bg-gray-100' },
+  ] as const
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">主要コネクタ</p>
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+          {connectors.map((c, i) => (
+            <motion.div
+              key={c.name}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className="flex items-start gap-3 p-3 rounded-lg bg-white border border-gray-200"
+            >
+              <div className={`w-8 h-8 rounded-lg ${c.bg} flex items-center justify-center shrink-0 mt-0.5`}>
+                <c.icon className={`w-4 h-4 ${c.color}`} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-bold text-gray-900">{c.name}</p>
+                <p className="text-[11px] text-gray-500">{c.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="my-4 border-t border-gray-200" />
+
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">接続は3ステップ</p>
+        <div className="flex flex-col sm:flex-row items-stretch gap-2">
+          {[
+            { num: '1', label: 'Settings > Customize を開く', icon: Settings },
+            { num: '2', label: 'コネクタを選択', icon: Plug },
+            { num: '3', label: 'サービスにログイン', icon: ExternalLink },
+          ].map((step, i) => (
+            <div key={step.num} className="flex-1 flex items-center gap-2">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-white border border-gray-200 flex-1">
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-600 text-xs font-bold flex items-center justify-center shrink-0">{step.num}</span>
+                <step.icon className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                <span className="text-xs font-medium text-gray-700">{step.label}</span>
+              </div>
+              {i < 2 && <ChevronRight className="w-4 h-4 text-gray-300 shrink-0 hidden sm:block" />}
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch10SynergyVisual() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">コネクタ × スキル の活用イメージ</p>
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6 space-y-3">
+        {[
+          { title: '自分の文体でブログ記事', flow: 'Notion（過去記事）→ Claude が口調を学習 → 新記事を作成' },
+          { title: 'スケジュールを踏まえた提案', flow: 'Google Calendar + Gmail → 空き時間を確認 → ミーティング候補をメール' },
+          { title: '営業データから週報', flow: 'HubSpot（商談）+ Slack → 今週のステータス → #sales に投稿' },
+        ].map((example) => (
+          <div key={example.title} className="flex items-start gap-3 p-3 rounded-lg bg-white border border-gray-200">
+            <ChevronRight className="w-4 h-4 text-primary-400 mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-bold text-gray-800">{example.title}</p>
+              <p className="text-[11px] text-gray-500">{example.flow}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 flex items-start gap-3">
+        <img src={imgTipHuman} alt="" className="w-14 h-14 shrink-0 -mt-1 hidden sm:block" />
+        <div className="flex-1 rounded-2xl bg-amber-50 border border-amber-200 p-5">
+          <p className="text-sm font-bold text-amber-800 mb-1">ポイント</p>
+          <p className="text-sm text-amber-700 leading-relaxed">コネクタをつなぐほど、Claude はあなたの業務フローを理解し、<strong>サービスをまたいだ「集合知」</strong>として動いてくれます。自分っぽい文体、自分の予定、自分のデータ — 全部つなげると「AI秘書」の完成です。</p>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch10SkillVisual() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">スキルの3つのレイヤー</p>
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6 space-y-3">
+        {[
+          { label: 'ビルトインスキル', tag: '最初から使える', items: 'Excel・Word・PowerPoint・PDF の作成', accent: 'bg-primary-50 border-primary-200 text-primary-700' },
+          { label: 'パートナースキル', tag: '追加できる', items: 'Figma、Notion、Atlassian など', accent: 'bg-gray-50 border-gray-200 text-gray-700' },
+          { label: 'カスタムスキル', tag: '自分で作れる', items: 'スキルクリエイターでチャットしながら作成', accent: 'bg-gray-50 border-gray-200 text-gray-700' },
+        ].map((layer, i) => (
+          <motion.div
+            key={layer.label}
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className={`rounded-lg border p-4 ${layer.accent}`}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              <p className="text-sm font-bold">{layer.label}</p>
+              <span className="text-[10px] font-medium bg-white/80 border border-current/10 px-2 py-0.5 rounded-full opacity-70">{layer.tag}</span>
+            </div>
+            <p className="text-xs text-gray-600">{layer.items}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Skill Creator flow */}
+      <div className="mt-4 rounded-xl border border-gray-200 bg-white p-5">
+        <p className="text-xs font-bold text-gray-600 mb-3">スキルクリエイターの流れ</p>
+        <div className="flex flex-col sm:flex-row items-stretch gap-2">
+          {[
+            { num: '1', label: '「スキルを作りたい」と伝える' },
+            { num: '2', label: 'やりたいタスクを説明' },
+            { num: '3', label: 'Claude がスキルを作成' },
+            { num: '4', label: '登録 → 次回から自動発動' },
+          ].map((step, i) => (
+            <div key={step.num} className="flex-1 flex items-center gap-1.5">
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + i * 0.08 }}
+                className="flex items-center gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100 flex-1"
+              >
+                <span className="w-5 h-5 rounded-full bg-primary-100 text-primary-600 text-[10px] font-bold flex items-center justify-center shrink-0">{step.num}</span>
+                <span className="text-[11px] font-medium text-gray-700 leading-tight">{step.label}</span>
+              </motion.div>
+              {i < 3 && <ChevronRight className="w-3.5 h-3.5 text-gray-300 shrink-0 hidden sm:block" />}
+            </div>
+          ))}
+        </div>
+        <p className="text-[11px] text-gray-400 mt-3">コードを書く必要はありません。チャットで対話するだけでスキルが完成します。</p>
+      </div>
+    </motion.div>
+  )
+}
+
+// === Ch.11: Claude Cowork visuals (focused on local power) ===
+
+function Ch11LocalPowerVisual() {
+  const estimateRows = [
+    { company: 'A建設', product: 'サイン看板 × 3', price: '¥450,000' },
+    { company: 'B不動産', product: 'LED表示板 × 1', price: '¥280,000' },
+    { company: 'C商事', product: '案内板 × 5', price: '¥720,000' },
+  ] as const
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">Cowork でできること — ピックアップ事例</p>
+
+      {/* Main showcase: Estimate PDF generation flow */}
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6">
+        <p className="text-sm font-bold text-gray-800 mb-4">見積リストから見積書PDFを一括生成</p>
+
+        {/* Flow: 3 columns on desktop, stacked on mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 items-start">
+          {/* Step 1: Input - 見積リスト */}
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="rounded-lg bg-white border border-gray-200 p-3"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-6 rounded bg-primary-50 flex items-center justify-center">
+                <FileSpreadsheet className="w-3.5 h-3.5 text-primary-500" />
+              </div>
+              <span className="text-[11px] font-bold text-primary-600 uppercase tracking-wide">Input</span>
+            </div>
+            <p className="text-xs font-medium text-gray-700 mb-2">見積リスト.xlsx</p>
+            <div className="rounded border border-gray-100 overflow-hidden">
+              <div className="grid grid-cols-3 text-[9px] font-bold text-gray-500 bg-gray-50 border-b border-gray-100">
+                <div className="px-1.5 py-1">取引先</div>
+                <div className="px-1.5 py-1">製品</div>
+                <div className="px-1.5 py-1 text-right">金額</div>
+              </div>
+              {estimateRows.map((row) => (
+                <div key={row.company} className="grid grid-cols-3 text-[9px] text-gray-600 border-b border-gray-50 last:border-0">
+                  <div className="px-1.5 py-1">{row.company}</div>
+                  <div className="px-1.5 py-1 truncate">{row.product}</div>
+                  <div className="px-1.5 py-1 text-right tabular-nums">{row.price}</div>
+                </div>
+              ))}
+              <div className="text-[8px] text-gray-400 text-center py-0.5">…他 27件</div>
+            </div>
+          </motion.div>
+
+          {/* Step 2: Template - 見積書ひな形 */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
+            className="flex flex-col items-center gap-2"
+          >
+            {/* Arrow (down on mobile, right on desktop) */}
+            <div className="sm:hidden flex justify-center py-1">
+              <ArrowDown className="w-4 h-4 text-gray-300" />
+            </div>
+
+            <div className="w-full rounded-lg bg-white border-2 border-dashed border-primary-200 p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-6 h-6 rounded bg-primary-50 flex items-center justify-center">
+                  <FileText className="w-3.5 h-3.5 text-primary-500" />
+                </div>
+                <span className="text-[11px] font-bold text-primary-600 uppercase tracking-wide">Template</span>
+              </div>
+              <p className="text-xs font-medium text-gray-700 mb-2">見積書ひな形.xlsx</p>
+              <div className="rounded border border-gray-100 bg-gray-50/80 p-2 space-y-1.5">
+                <div className="flex justify-between text-[9px]">
+                  <span className="text-gray-400">宛先:</span>
+                  <span className="bg-primary-100 text-primary-600 px-1.5 rounded text-[8px] font-mono">{'{{取引先}}'}</span>
+                </div>
+                <div className="flex justify-between text-[9px]">
+                  <span className="text-gray-400">品名:</span>
+                  <span className="bg-primary-100 text-primary-600 px-1.5 rounded text-[8px] font-mono">{'{{製品}}'}</span>
+                </div>
+                <div className="flex justify-between text-[9px]">
+                  <span className="text-gray-400">合計:</span>
+                  <span className="bg-primary-100 text-primary-600 px-1.5 rounded text-[8px] font-mono">{'{{金額}}'}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="hidden sm:flex items-center gap-1 text-gray-300">
+              <div className="w-6 border-t border-gray-300" />
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+            <div className="sm:hidden flex justify-center py-1">
+              <ArrowDown className="w-4 h-4 text-gray-300" />
+            </div>
+          </motion.div>
+
+          {/* Step 3: Output - PDFs */}
+          <motion.div
+            initial={{ opacity: 0, x: 10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="rounded-lg bg-white border border-gray-200 p-3"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-6 rounded bg-primary-50 flex items-center justify-center">
+                <Folder className="w-3.5 h-3.5 text-primary-500" />
+              </div>
+              <span className="text-[11px] font-bold text-primary-600 uppercase tracking-wide">Output</span>
+            </div>
+            <p className="text-xs font-medium text-gray-700 mb-2">output/ フォルダ</p>
+            <div className="space-y-1">
+              {estimateRows.map((row, i) => (
+                <motion.div
+                  key={row.company}
+                  initial={{ opacity: 0, x: 6 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
+                  className="flex items-center gap-1.5 rounded bg-gray-50 border border-gray-100 px-2 py-1"
+                >
+                  <FileText className="w-3 h-3 text-red-400 shrink-0" />
+                  <span className="text-[9px] text-gray-600 truncate">見積書_{row.company}.pdf</span>
+                </motion.div>
+              ))}
+              <div className="text-[8px] text-gray-400 text-center pt-0.5">…他 27件の PDF</div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Prompt example */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+          className="mt-4 rounded-lg bg-primary-50/60 border border-primary-100 p-3"
+        >
+          <p className="text-[10px] font-bold text-primary-500 uppercase tracking-wide mb-1">Cowork に伝えるプロンプト</p>
+          <p className="text-xs text-primary-800 leading-relaxed">「見積依頼フォルダの見積リスト.xlsx を開いて、行ごとに見積書ひな形.xlsx の各セルに該当する数値とテキストを代入して、行数分だけ完成した見積書をPDFで保存してください」</p>
+        </motion.div>
+      </div>
+
+      {/* Other examples - 1 column, broader use cases */}
+      <div className="mt-4 rounded-xl border border-gray-200 bg-white p-5">
+        <p className="text-xs font-bold text-gray-600 mb-4">他にもこんなことが</p>
+        <div className="space-y-3">
+          {[
+            { label: 'ひな形 × データで文書を量産', desc: '顧客リストから案内状テンプレートに差し込み → 顧客別PDFを一括生成。契約書、辞令、請求書なども同じ要領で。', icon: FileText },
+            { label: 'フォルダの整理・分類', desc: '「ダウンロードフォルダをカテゴリ別に整理して」「ドキュメントフォルダの中身を年度別にまとめて」— ファイルの移動・リネームもチャットで指示するだけ。', icon: FolderOpen },
+            { label: 'データの加工・集計', desc: '「この CSV を読んで部門別に集計して、前年比グラフ付きの Excel レポートを作ってデスクトップに保存して」— 読み取り・加工・保存まで一気通貫。', icon: FileSpreadsheet },
+            { label: 'Word / PowerPoint の直接生成', desc: '「来月のプレゼン資料を Word で作って Documents に保存して」— アップロード・ダウンロード不要、ローカルに直接ファイルが生まれる。', icon: Folder },
+          ].map((item, i) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 * i }}
+              className="flex items-start gap-3 rounded-lg bg-gray-50 border border-gray-100 p-3.5"
+            >
+              <div className="w-7 h-7 rounded bg-white border border-gray-200 flex items-center justify-center shrink-0 mt-0.5">
+                <item.icon className="w-3.5 h-3.5 text-gray-500" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-gray-700 mb-0.5">{item.label}</p>
+                <p className="text-[11px] text-gray-500 leading-relaxed">{item.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Q&A */}
+      <div className="mt-5 space-y-3">
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="flex items-start gap-3">
+          <img src={imgHuman09} alt="" className="w-10 h-10 shrink-0" />
+          <div className="flex-1 rounded-2xl bg-amber-50 border border-amber-200 p-4">
+            <p className="text-xs font-bold text-amber-700 mb-1">初心者のギモン</p>
+            <p className="text-sm text-amber-800">Chat でもファイルを作ってもらえるけど、何が違うの？</p>
+          </div>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="flex items-start gap-3">
+          <img src={imgHuman15} alt="" className="w-10 h-10 shrink-0" />
+          <div className="flex-1 rounded-2xl bg-green-50 border border-green-200 p-4">
+            <p className="text-xs font-bold text-green-700 mb-1">回答</p>
+            <p className="text-sm text-green-800">Chat ではファイルを1つずつアップロード → ダウンロードする手間がかかります。Cowork は<strong>フォルダを指定するだけで、30件でも50件でも一括処理</strong>。読み取り・加工・保存まで全自動で完結します。</p>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch11ChatVsCoworkVisual() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">Chat と Cowork の違い</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
+          <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200">
+            <p className="text-xs font-bold text-gray-600 uppercase tracking-wider">Chat</p>
+          </div>
+          <div className="p-4 space-y-2 text-xs text-gray-600">
+            <p>Web / スマホ / Desktop で利用可能</p>
+            <p>コネクタで外部サービスと連携</p>
+            <p>ファイルはアップロード/ダウンロード</p>
+            <p className="text-gray-400 italic">ローカルファイルには直接触れない</p>
+          </div>
+        </div>
+        <div className="rounded-xl border-2 border-primary-200 bg-primary-50/30 overflow-hidden">
+          <div className="px-4 py-2.5 bg-primary-50 border-b border-primary-200">
+            <p className="text-xs font-bold text-primary-600 uppercase tracking-wider">Cowork</p>
+          </div>
+          <div className="p-4 space-y-2 text-xs text-gray-700">
+            <p><strong>Desktop アプリ専用</strong></p>
+            <p><strong>ローカルのファイル・フォルダを直接操作</strong></p>
+            <p>Excel / Word / PPT をローカルに直接生成</p>
+            <p>/schedule で定期タスクを自動化</p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function Ch11PluginVisual() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10 pl-0 lg:pl-10"
+    >
+      <p className="text-xs font-bold text-primary-500 uppercase tracking-widest mb-3">プラグイン = 業務環境のワンクリック導入</p>
+      <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-5 sm:p-6">
+        <p className="text-xs text-gray-500 mb-3">スキル + コネクタ + サブエージェントをまとめたパッケージ。部署や役割ごとに最適化された環境を一括インストールできます。</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {['HR', 'デザイン', 'エンジニアリング', 'マーケティング', '法務', 'ファイナンス', 'データ分析', 'オペレーション'].map((dept) => (
+            <div key={dept} className="text-center px-3 py-2 rounded-lg bg-white border border-gray-200 text-xs font-medium text-gray-600">
+              {dept}
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 export function Chapter() {
   const { id } = useParams<{ id: string }>()
   const chapterId = Number(id)
@@ -973,7 +1675,7 @@ export function Chapter() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2.5 mb-4">
               <span className="text-[11px] font-bold text-primary-500 uppercase tracking-widest">
-                {chapter.id === 9 ? 'Bonus Chapter' : `Chapter ${chapter.id}`}
+                {chapter.id >= 9 ? 'Bonus Chapter' : `Chapter ${chapter.id}`}
               </span>
               <span className="flex items-center gap-1 text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full font-medium">
                 <Clock className="w-3 h-3" /> {chapter.duration}
@@ -1533,6 +2235,61 @@ export function Chapter() {
           {/* Ch.6: Daily flow visual after daily-flow section */}
           {chapter.id === 6 && section.id === 'daily-flow' && (
             <Ch6DailyFlowVisual />
+          )}
+
+          {/* Ch.10: Basics capabilities visual */}
+          {chapter.id === 10 && section.id === 'claude-chat-basics' && (
+            <Ch10BasicsVisual />
+          )}
+
+          {/* Ch.10: Projects visual */}
+          {chapter.id === 10 && section.id === 'projects' && (
+            <Ch10ProjectsVisual />
+          )}
+
+          {/* Ch.10: Connector visual */}
+          {chapter.id === 10 && section.id === 'connectors' && (
+            <Ch10ConnectorVisual />
+          )}
+
+          {/* Ch.10: Skill visual */}
+          {chapter.id === 10 && section.id === 'skills-and-creator' && (
+            <Ch10SkillVisual />
+          )}
+
+          {/* Ch.10: Connector + Skill synergy visual */}
+          {chapter.id === 10 && section.id === 'connector-synergy' && (
+            <Ch10SynergyVisual />
+          )}
+
+          {/* Ch.10: Model comparison visual */}
+          {chapter.id === 10 && section.id === 'model-selection' && (
+            <Ch10ModelComparisonVisual />
+          )}
+
+          {/* Ch.10: Usage limit visual */}
+          {chapter.id === 10 && section.id === 'usage-limits' && (
+            <Ch10UsageLimitVisual />
+          )}
+
+          {/* Ch.10: Usage tips visual */}
+          {chapter.id === 10 && section.id === 'usage-tips' && (
+            <Ch10TipsVisual />
+          )}
+
+          {/* Ch.11: Local power visual */}
+          {chapter.id === 11 && section.id === 'local-power' && (
+            <Ch11LocalPowerVisual />
+          )}
+
+          {/* Ch.11: Chat vs Cowork visual */}
+          {chapter.id === 11 && section.id === 'chat-vs-cowork' && (
+            <Ch11ChatVsCoworkVisual />
+          )}
+
+          {/* Ch.11: Plugin visual */}
+          {chapter.id === 11 && section.id === 'plugins' && (
+            <Ch11PluginVisual />
           )}
         </div>
       ))}

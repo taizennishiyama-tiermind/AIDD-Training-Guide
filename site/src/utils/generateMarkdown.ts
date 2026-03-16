@@ -371,6 +371,87 @@ function getChapterSpecificMarkdown(chapterId: number): string {
       lines.push('')
       break
 
+    case 10:
+      lines.push('---')
+      lines.push('')
+      lines.push('### チャットなのに、ここまでできる')
+      lines.push('')
+      lines.push('| 機能 | 説明 |')
+      lines.push('|---|---|')
+      lines.push('| Web検索 | 最新情報を自分で調べて回答 |')
+      lines.push('| コード実行 | Pythonを書いて即実行、グラフも生成 |')
+      lines.push('| ファイル生成 | Word・Excel・PowerPoint・PDFを作成 |')
+      lines.push('| 図解・チャート | フローチャートやダイアグラムを生成 |')
+      lines.push('| ファイル読み取り | PDF・画像・CSV・Excelを直接分析 |')
+      lines.push('| 音声入力 | マイクで話しかけてそのまま指示 |')
+      lines.push('')
+      lines.push('### モデル別の使い分け')
+      lines.push('')
+      lines.push('| モデル | 用途 | 使用量 |')
+      lines.push('|---|---|---|')
+      lines.push('| Sonnet 4.6 | 普段使い全般（質問、文章作成、分析、コーディング） | 標準 |')
+      lines.push('| Opus 4.6 | 最終成果物の仕上げ、深い分析、Claude Code での実装 | 約3〜5倍 |')
+      lines.push('')
+      lines.push('> **原則：普段は Sonnet。** 最終アウトプットの品質を上げたいとき、深い分析や実装が必要なときだけ Opus に切り替えます。')
+      lines.push('')
+      lines.push('### 主要コネクタ')
+      lines.push('')
+      lines.push('| サービス | できること |')
+      lines.push('|---|---|')
+      lines.push('| Gmail | メール検索・送信 |')
+      lines.push('| Slack | メッセージ取得・投稿 |')
+      lines.push('| Google Calendar | 予定の確認・作成 |')
+      lines.push('| Google Drive | ファイルの読み書き |')
+      lines.push('| GitHub | Issue・PR の操作 |')
+      lines.push('| Notion | ページの読み書き |')
+      lines.push('')
+      lines.push('### コネクタ + スキル = AI秘書')
+      lines.push('')
+      lines.push('- メール要約: Gmail コネクタ + 要約スキル → 毎朝の未読メールを3行にまとめて Slack に投稿')
+      lines.push('- 議事録作成: Google Drive コネクタ + 議事録スキル → 会議メモから議事録を自動生成して共有フォルダに保存')
+      lines.push('- 週報自動化: GitHub + Slack コネクタ + レポートスキル → 今週のPR・Issue活動から週報ドラフトを生成')
+      lines.push('')
+      lines.push('### Projects の仕組み')
+      lines.push('')
+      lines.push('1. 参考資料をアップロード')
+      lines.push('2. キャッシュされて使用量節約')
+      lines.push('3. 新しい会話でも自動読み込み')
+      lines.push('')
+      break
+
+    case 11:
+      lines.push('---')
+      lines.push('')
+      lines.push('### Cowork のローカル操作')
+      lines.push('')
+      lines.push('**ピックアップ事例: 見積リストから見積書PDFを一括生成**')
+      lines.push('- Input: 見積リスト.xlsx（取引先・製品・金額の一覧）')
+      lines.push('- Template: 見積書ひな形.xlsx（各セルに {{取引先}} {{製品}} {{金額}} を代入）')
+      lines.push('- Output: output/ フォルダに 見積書_A建設.pdf, 見積書_B不動産.pdf … 30件分を一括生成')
+      lines.push('')
+      lines.push('**他にもこんなことが:**')
+      lines.push('- ひな形 × データで文書を量産（顧客案内状、契約書、辞令、請求書）')
+      lines.push('- フォルダの整理・分類（ダウンロードフォルダをカテゴリ別に整理、ドキュメントを年度別にまとめ）')
+      lines.push('- データの加工・集計（CSV → 部門別集計 → 前年比グラフ付きExcelレポート）')
+      lines.push('- Word / PowerPoint の直接生成（アップロード・ダウンロード不要）')
+      lines.push('')
+      lines.push('> **Chat との最大の違い:** Chat はファイルを手動でアップロード→ダウンロードする必要がありますが、Cowork はフォルダを指定するだけで読み取り・加工・保存まで一気に完結します。')
+      lines.push('')
+      lines.push('### Chat vs Cowork の違い')
+      lines.push('')
+      lines.push('| 観点 | Chat | Cowork |')
+      lines.push('|---|---|---|')
+      lines.push('| 操作 | 1往復ずつ対話 | ゴールを渡して自律実行 |')
+      lines.push('| ファイル | 手動アップロード | ローカルファイルを直接読み書き |')
+      lines.push('| 出力 | テキスト中心 | Excel・Word・PowerPoint を直接生成 |')
+      lines.push('| 並列処理 | なし | サブタスクを並列実行 |')
+      lines.push('')
+      lines.push('### プラグイン = スキル + コネクタ + サブエージェント')
+      lines.push('')
+      lines.push('部署・役割ごとのプリセットテンプレート: HR、デザイン、エンジニアリング、マーケティング、法務、ファイナンス、データ分析、オペレーション')
+      lines.push('')
+      break
+
     default:
       break
   }
@@ -799,6 +880,137 @@ function getInlineSectionContent(chapterId: number, sectionId: string): string |
       lines.push('| 5 | 公開URL確認 | アプリURLで最新を確認 | あなた |')
       lines.push('')
       lines.push('> **アドバイス:** 修正するたびにプッシュする必要はありません。localhostで何回か確認して、「よし、これでOK」と思ったタイミングでプッシュすれば大丈夫です。')
+      return lines.join('\n')
+
+    // Ch.10: Basics capabilities
+    case '10:claude-chat-basics':
+      lines.push('')
+      lines.push('| 機能 | 説明 |')
+      lines.push('|---|---|')
+      lines.push('| Web検索 | 最新情報を自分で調べて回答 |')
+      lines.push('| コード実行 | Pythonを書いて即実行、グラフも生成 |')
+      lines.push('| ファイル生成 | Word・Excel・PowerPoint・PDFを作成 |')
+      lines.push('| 図解・チャート | フローチャートやダイアグラムを生成 |')
+      lines.push('| ファイル読み取り | PDF・画像・CSV・Excelを直接分析 |')
+      lines.push('| 音声入力 | マイクで話しかけてそのまま指示 |')
+      lines.push('')
+      lines.push('> Claude は裏側で**エージェントが自律的に動きます**。Webを検索しに行ったり、Pythonを実行してグラフを作ったり、Excel・Word・PowerPointを生成したり。チャットの見た目のまま、かなり高度なことができます。ただし**画像生成と動画生成はできない**ので、そこは Gemini と使い分けましょう。')
+      return lines.join('\n')
+
+    // Ch.10: Projects visual
+    case '10:projects':
+      lines.push('')
+      lines.push('#### Projects の仕組み')
+      lines.push('1. 参考資料をアップロード（マニュアル、ガイドライン等）')
+      lines.push('2. キャッシュされて使用量節約')
+      lines.push('3. 新しい会話でも自動読み込み')
+      lines.push('')
+      lines.push('> **ワンポイント:** Projects にアップした資料はキャッシュされるので、毎回ファイルを添付するより使用量が少なくなります。')
+      return lines.join('\n')
+
+    // Ch.10: Connector visual
+    case '10:connectors':
+      lines.push('')
+      lines.push('**主要コネクタ:** Gmail, Slack, Google Calendar, Google Drive, GitHub, Microsoft 365')
+      lines.push('')
+      lines.push('**接続は3ステップ:** 1. Settings > Customize を開く → 2. コネクタを選択 → 3. サービスにログイン')
+      lines.push('')
+      lines.push('> **ワンポイント:** コネクタを有効にするとバックグラウンドでトークンを消費します。使わないときはオフにしましょう。')
+      return lines.join('\n')
+
+    // Ch.10: Skill visual
+    case '10:skills-and-creator':
+      lines.push('')
+      lines.push('**スキルの3つのレイヤー:**')
+      lines.push('- **ビルトインスキル（最初から使える）** — Excel・Word・PowerPoint・PDF の作成')
+      lines.push('- **パートナースキル（追加できる）** — Figma、Notion、Atlassian など')
+      lines.push('- **カスタムスキル（自分で作れる）** — スキルクリエイターでチャットしながら作成')
+      lines.push('')
+      lines.push('**スキルクリエイターの流れ:** 1.「スキルを作りたい」と伝える → 2. やりたいタスクを説明 → 3. Claude がスキルを作成 → 4. 登録して次回から自動発動')
+      lines.push('')
+      lines.push('コードを書く必要はありません。チャットで対話するだけでスキルが完成します。')
+      return lines.join('\n')
+
+    // Ch.10: Connector + Skill synergy
+    case '10:connector-synergy':
+      lines.push('')
+      lines.push('**コネクタ + スキル = AI秘書**')
+      lines.push('')
+      lines.push('- メール要約: Gmail コネクタ + 要約スキル → 毎朝の未読メールを3行にまとめて Slack に投稿')
+      lines.push('- 議事録作成: Google Drive コネクタ + 議事録スキル → 会議メモから議事録を自動生成して共有フォルダに保存')
+      lines.push('- 週報自動化: GitHub + Slack コネクタ + レポートスキル → 今週のPR・Issue活動から週報ドラフトを生成')
+      lines.push('')
+      lines.push('> **ポイント:** 1つのコネクタだけでも便利ですが、複数のサービスをつなぐことで「自分だけのAI秘書」が完成します。')
+      return lines.join('\n')
+
+    // Ch.10: Model comparison visual
+    case '10:model-selection':
+      lines.push('')
+      lines.push('| モデル | 用途 | 使用量 |')
+      lines.push('|---|---|---|')
+      lines.push('| Sonnet 4.6 | 普段使い全般（質問、文章作成、分析、コーディング） | 標準 |')
+      lines.push('| Opus 4.6 | 最終成果物の仕上げ、深い分析、Claude Code での実装 | 約3〜5倍 |')
+      lines.push('')
+      lines.push('> **原則：普段は Sonnet。** 最終アウトプットの品質を上げたいとき、深い分析が必要なときだけ Opus に切り替えます。')
+      return lines.join('\n')
+
+    // Ch.10: Usage limit visual
+    case '10:usage-limits':
+      lines.push('')
+      lines.push('**Pro プランの使用量目安:**')
+      lines.push('- 5時間ウィンドウで約40〜45メッセージ')
+      lines.push('- 長い会話や拡張思考、ファイル添付で消費量が増える')
+      lines.push('- Projects にナレッジをアップロードするとキャッシュが効いて節約できる')
+      lines.push('')
+      lines.push('**使用量の2つの時間枠:**')
+      lines.push('- **5時間ウィンドウ** — 最初のメッセージから5時間で計測。古いメッセージは期限切れ → 容量回復')
+      lines.push('- **7日間クォータ** — 1週間の総消費を追跡。7日後にリセット')
+      return lines.join('\n')
+
+    // Ch.10: Usage tips
+    case '10:usage-tips':
+      lines.push('')
+      lines.push('**使いこなしのコツ:**')
+      lines.push('- Projects にマニュアルや社内ルールをアップロードしてキャッシュ活用')
+      lines.push('- オフピーク時間帯（JST 21:00〜翌3:00）は制限が緩和されやすい')
+      lines.push('- 1つの会話で全部やらず、タスクごとに会話を分ける')
+      lines.push('- 「続きを書いて」より「◯◯の部分だけ書いて」と具体的に指示')
+      lines.push('- 拡張思考はモデルが自動判定（アダプティブ思考）。手動でオンにする必要なし')
+      lines.push('- Extra Usage を有効にすると上限超過分を従量課金で利用可能')
+      return lines.join('\n')
+
+    // Ch.11: Local power visual
+    case '11:local-power':
+      lines.push('')
+      lines.push('**ピックアップ事例: 見積リストから見積書PDFを一括生成**')
+      lines.push('- Input: 見積リスト.xlsx → Template: 見積書ひな形.xlsx → Output: 見積書_A建設.pdf, 見積書_B不動産.pdf … 30件分')
+      lines.push('')
+      lines.push('**他にもこんなことが:**')
+      lines.push('- ひな形 × データで文書を量産（顧客案内状、契約書、辞令、請求書）')
+      lines.push('- フォルダの整理・分類（ダウンロードフォルダをカテゴリ別に整理、ドキュメントを年度別にまとめ）')
+      lines.push('- データの加工・集計（CSV → 部門別集計 → 前年比グラフ付きExcelレポート）')
+      lines.push('- Word / PowerPoint の直接生成（アップロード・ダウンロード不要）')
+      lines.push('')
+      lines.push('> **Chat との最大の違い:** Chat はファイルを手動でアップロード→ダウンロードする必要がありますが、Cowork はフォルダを指定するだけで読み取り・加工・保存まで一気に完結します。')
+      return lines.join('\n')
+
+    // Ch.11: Chat vs Cowork visual
+    case '11:chat-vs-cowork':
+      lines.push('')
+      lines.push('| 観点 | Chat | Cowork |')
+      lines.push('|---|---|---|')
+      lines.push('| 操作 | 1往復ずつ対話 | ゴールを渡して自律実行 |')
+      lines.push('| ファイル | 手動アップロード | ローカルファイルを直接読み書き |')
+      lines.push('| 出力 | テキスト中心 | Excel・Word・PowerPoint を直接生成 |')
+      lines.push('| 並列処理 | なし | サブタスクを並列実行 |')
+      return lines.join('\n')
+
+    // Ch.11: Plugin visual
+    case '11:plugins':
+      lines.push('')
+      lines.push('**プラグイン = スキル + コネクタ + サブエージェント**')
+      lines.push('')
+      lines.push('プリセットテンプレート: HR、デザイン、エンジニアリング、マーケティング、法務、ファイナンス、データ分析、オペレーション')
       return lines.join('\n')
 
     default:

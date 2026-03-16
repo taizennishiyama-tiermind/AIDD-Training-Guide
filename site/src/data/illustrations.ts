@@ -2,6 +2,7 @@ import m01 from '../assets/illustration/png/m_01_white.png'
 import m02 from '../assets/illustration/png/m_02_white.png'
 import m03 from '../assets/illustration/png/m_03_white.png'
 import m04 from '../assets/illustration/png/m_04_white.png'
+import m05 from '../assets/illustration/png/m_05_white.png'
 import m07 from '../assets/illustration/png/m_07_white.png'
 import m09 from '../assets/illustration/png/m_09_white.png'
 import m11 from '../assets/illustration/png/m_11_white.png'
@@ -32,6 +33,8 @@ export const chapterIllustrations: Record<number, string> = {
   7: m02,   // checkmark - テスト成功
   8: m13,   // security verification - セキュリティ
   9: m01,   // AI + person - LLM組み込み
+  10: m03,  // communication - Claude Chat活用
+  11: m05,  // collaborative work - Claude Cowork活用
 }
 
 export const heroIllustration = l01
